@@ -26,37 +26,33 @@
 <div class="container">
     <form action="">
         <div class="mb-3">
-            <label for="searchLocation" class="form-label">Search for product unit:</label>
-            <input type="text" class="form-control" name="searchLocation" />
+            <label for="searchProduct" class="form-label">Search by product name:</label>
+            <input type="text" class="form-control" name="searchProduct" />
         </div>
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
     <p>Searching for {{ searchTerm }}</p>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% for unit in units %}
-        <div class="col">
+        {% for product in products %}
+        <div v-for="product in products" class="col">
             <div class="card">
-                {% for product in products %}
-                {% if unit.product_id_foreign.product_id == product.product_id %}
-                <h3>{{ unit.unit_location }}</h3>
                 {% if product.product_image %}
-                <img class="card-img-top" src="{{ product.product_image }}" />
+                <img class="card-img-top" src="{{ product.product_image.url }}" />
                 {% endif %}
                 <div class="card-body">
-                    <h5 class="card-name fw-bold">{{ product.product_name }}</h5>
-                    <h5 class="card-product_category fw-bold">{{ product.product_category }}</h5>
-                    <h5 class="card-product_price fw-bold">{{ product.product_price }}</h5>
-                    <h5 class="card-product_stock fw-bold">{{ product.product_stock }}</h5>
-                    <h5 class="card-unit_id fw-bold">{{ unit.unit_id }}</h5>
-                    <p class="card-product_description">{{ product.product_description }}</p>
+                    <h5 class="card-name fw-bold"> Name: {{ product.product_name }}</h5>
+                    <h5 class="card-product_category fw-bold"> Category: {{ product.product_category }}</h5>
+                    <h5 class="card-product_price fw-bold"> Price: ${{ product.product_price }}</h5>
+                    <h5 class="card-product_stock fw-bold">Stock: {{ product.product_stock }}</h5>
+                    <p class="card-product_description">Decription: {{ product.product_description }}</p>
+                    <a href="{% url 'UnitsDetail' product.product_id %}" class="btn btn-primary"> View units detail</a>
                 </div>
-                {% endif %}
-                {% endfor %}
             </div>
         </div>
-        {% endfor %}
+        {% endfor %}        
     </div>
+    <br>
 
     <!-- Notificaciones -->
     {% if low_quantity_products %}

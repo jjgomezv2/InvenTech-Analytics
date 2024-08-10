@@ -29,7 +29,7 @@ class ProductUnit(models.Model):
     unit_id = models.CharField(max_length=50, default=generate_uuid, editable=False)
     unit_expirationDate = models.DateField()
     unit_location = models.CharField(max_length=50)
-    unit_quality_state = models.CharField(max_length=50, default="Buen estado", editable = False) # Discutir, campo se llena automaticamente con que el producto entra en buen estado
+    unit_quality_state = models.CharField(max_length=50, default="Good condition", editable = False)
     
     def __str__(self):
         return self.unit_id
