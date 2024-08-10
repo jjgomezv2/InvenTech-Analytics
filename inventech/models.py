@@ -14,6 +14,11 @@ class Product(models.Model):
     product_stock = models.IntegerField(default=0, editable = False)
     product_description = models.CharField(max_length=100)
     product_image = models.ImageField(upload_to='inventech/images/', blank = True)
+
+    @classmethod
+    def verifyLowQuantity(cls):
+        low_quantity_products = cls.objects.filter(product_stock__lte=20)
+        return low_quantity_products
     
     # Para que en el admin no salga object(1) sino el nombre del producto
     def __str__(self):
@@ -28,5 +33,6 @@ class ProductUnit(models.Model):
     
     def __str__(self):
         return self.unit_id
-    
+
+
     

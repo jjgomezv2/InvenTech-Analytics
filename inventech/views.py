@@ -7,9 +7,10 @@ from .models import Product, ProductUnit
 def home(request):
     searchTerm = request.GET.get('searchLocation')
     products = Product.objects.all()
+    low_quantity_products=Product.verifyLowQuantity()
     if searchTerm:
-        units = ProductUnit.objects.filter(unit_location = searchTerm)
+        units = ProductUnit.objects.filter(unit_id = searchTerm)
     else:
         units = ProductUnit.objects.all()
-    return render(request, 'home.html', {'searchTerm':searchTerm, 'units': units, 'products': products})
+    return render(request, 'home.html', {'searchTerm':searchTerm, 'units': units, 'products': products, 'low_quantity_products': low_quantity_products})
     #return render(request, 'home.html')
