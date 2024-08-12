@@ -56,11 +56,11 @@
                         <div class="accordion-item">
                           <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                              AI-generated handling suggestions
+                                Handling suggestions
                             </button>
                           </h2>
                           <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body"> {{product.generated_suggestions}} </div>
+                            <div class="accordion-body"> {{product.assigned_suggestions|linebreaks}} </div>
                           </div>
                         </div>
                     </div>
