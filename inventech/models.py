@@ -31,8 +31,14 @@ class ProductUnit(models.Model):
     unit_location = models.CharField(max_length=50)
     unit_quality_state = models.CharField(max_length=50, default="Good condition", editable = False)
     
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        # Actualiza el stock después de guardar la unidad
+        product = self.product_id_foreign
+        product.product_stock = ProductUnit.objects.filter(product_id_foreign=product).count()
+        product.save()
+
+    
     def __str__(self):
         return self.unit_id
 
-
-    

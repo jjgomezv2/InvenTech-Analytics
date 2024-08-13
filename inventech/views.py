@@ -47,6 +47,9 @@ def home(request):
     """ for product in products:
         product.generated_suggestions = generate_text(product)
         product.save() """
+    
+    for unit in ProductUnit.objects.all():
+        unit.save()
         
     for product in products:
         product.assigned_suggestions = assign_suggestions(product)
