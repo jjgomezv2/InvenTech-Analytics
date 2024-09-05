@@ -1,5 +1,5 @@
 django
-matploblib
+matplotlib
 pillow
 openai
 python-dotenv
