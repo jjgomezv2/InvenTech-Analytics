@@ -1,3 +1,6 @@
+django
+matploblib
+pillow
 openai
 python-dotenv
 numpy
