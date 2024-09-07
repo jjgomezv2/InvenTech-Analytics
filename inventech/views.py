@@ -1,19 +1,37 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Product, ProductUnit
+from .handling_suggestions import Handling_suggestions
+
+import openai
+from openai import RateLimitError
+
+import markdown
  
 def assign_suggestions(product):
-    suggestions = {
-    'Lacteos': '• Mantener entre 4°C y 25°C. \n • Evitar temperaturas extremas. \n • Evitar la luz solar directa y fuentes de luz intensa. \n • Mantener la humedad relativa entre 50% y 70%. \n • Asegurar una buena ventilación en la bodega.',
-    'Carnes frias': '• Mantén el producto entre 0°C y 4°C. \n • La humedad relativa del aire debe mantenerse entre 75% y 85%. \n • Si se requiere almacenamiento a largo plazo, la temperatura debe mantenerse a -18°C (0°F) o más baja',
-    'Pollo': '• Mantener a -18°C (0°F) o menos. Es crucial que el pollo se mantenga congelado en todo momento. \n • Evitar fluctuaciones de temperatura que puedan causar descongelamiento parcial y recongelamiento. \n • Mantener una iluminación baja en el área de almacenamiento para evitar la degradación de la calidad del producto.'
-    }
+
+    try:
+        hs = Handling_suggestions()
+        suggestions = hs.get_suggestions(
+            product.product_name,
+            product.product_category,
+            product.product_description
+        )
+
+        assigned_suggestions = markdown.markdown(suggestions)
+
+        print(assigned_suggestions)
+        return assigned_suggestions
     
-    for key in suggestions:
-        if key == product.product_category:
-            assigned_suggestions = suggestions.get(key)
-            
-    return assigned_suggestions
+    except RateLimitError as e:
+        # Log the error for debugging
+        print(f"RateLimitError: {e}")
+        # Return a fallback message or handle the error gracefully
+        return "API quota exceeded. Please try again later."
+    except Exception as e:
+        # Handle any other exceptions
+        print(f"Error fetching suggestions: {e}")
+        return "An error occurred while fetching suggestions."
 
 # Create your views here.
 
