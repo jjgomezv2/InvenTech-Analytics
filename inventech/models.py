@@ -1,5 +1,6 @@
 from django.db import models
 import uuid # Importa las librerías para generar códigos únicos UUID
+from datetime import datetime # Date time library
 
 # Función para generar un codigo UUID en versión 4
 def generate_uuid():
@@ -30,6 +31,13 @@ class ProductUnit(models.Model):
     unit_expirationDate = models.DateField()
     unit_location = models.CharField(max_length=50)
     unit_quality_state = models.CharField(max_length=50, default="Good condition", editable = False)
+
+    @classmethod
+    def verifyExpiration(cls, product):
+        now = datetime.now().date()
+        expiredProducts = cls.objects.filter(unit_expirationDate__lt = now, product_id_foreign = product)
+        return expiredProducts
+    
     
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

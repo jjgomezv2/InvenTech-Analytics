@@ -85,6 +85,7 @@ def suggest_price(product):
 def home(request):
     searchTerm = request.GET.get('searchProduct')
     low_quantity_products=Product.verifyLowQuantity()
+    expired_units = ProductUnit.verifyExpiration()
     if searchTerm:
         products = Product.objects.filter(product_name__icontains = searchTerm)
     else:
@@ -102,7 +103,6 @@ def home(request):
             product.save()
     
     return render(request, 'home.html', {'searchTerm':searchTerm, 'products': products, 'low_quantity_products': low_quantity_products})
-    #return render(request, 'home.html')
     
 def unitsDetail(request, product_id):
     searchTerm = request.GET.get('searchUnit')
@@ -112,5 +112,6 @@ def unitsDetail(request, product_id):
         units = ProductUnit.objects.all()
         
     product = get_object_or_404(Product, product_id=product_id)
+    expiredUnits = ProductUnit.verifyExpiration(product)
     
-    return render(request, 'unitsDetail.html', {'searchTerm':searchTerm, 'product': product, 'units': units})
+    return render(request, 'unitsDetail.html', {'searchTerm':searchTerm, 'product': product, 'units': units, 'expiredUnits': expiredUnits})
