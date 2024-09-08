@@ -85,7 +85,6 @@ def suggest_price(product):
 def home(request):
     searchTerm = request.GET.get('searchProduct')
     low_quantity_products=Product.verifyLowQuantity()
-    expired_units = ProductUnit.verifyExpiration()
     if searchTerm:
         products = Product.objects.filter(product_name__icontains = searchTerm)
     else:
@@ -96,10 +95,11 @@ def home(request):
         unit.save()
         
     for product in products:
-        product.assigned_suggestions = assign_suggestions(product)
-        product.save()
         if product.product_price == 0:
             product.product_price = suggest_price(product)
+            product.save()
+        if product.product_assigned_suggestions == "Blank":
+            product.product_assigned_suggestions = assign_suggestions(product)
             product.save()
     
     return render(request, 'home.html', {'searchTerm':searchTerm, 'products': products, 'low_quantity_products': low_quantity_products})

@@ -15,6 +15,7 @@ class Product(models.Model):
     product_stock = models.IntegerField(default=0, editable = False)
     product_description = models.CharField(max_length=100)
     product_image = models.ImageField(upload_to='inventech/images/', blank = True)
+    product_assigned_suggestions = models.CharField(max_length=5000,default="Blank")
 
     @classmethod
     def verifyLowQuantity(cls):
