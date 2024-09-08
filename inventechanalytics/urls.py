@@ -25,6 +25,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', inventechViews.home, name='home'),
     path('UnitsDetail/<str:product_id>/', inventechViews.unitsDetail, name='UnitsDetail'),
+    path('productCreation/', inventechViews.create_product, name='productCreation'),
+    path('unitCreation/<str:product_id>/', inventechViews.create_unit, name='unitCreation'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

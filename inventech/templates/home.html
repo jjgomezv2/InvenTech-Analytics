@@ -26,7 +26,10 @@
 <div class="container">
     <h1>Inventech Analytics</h1>
     <h2>Your products</h2>
-
+    <br>
+    <a class="btn btn-success" href="{% url 'productCreation' %}" role="button">Create a new product</a>
+    <br>
+    <br>
     <form action="">
         <div class="mb-3">
             <label for="searchProduct" class="form-label">Search by product name:</label>
@@ -38,7 +41,7 @@
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for product in products %}
-        <div class="col">
+        <div class="col d-flex align-items-stretch">
             <div class="card">
                 {% if product.product_image %}
                 <img class="card-img-top" src="{{ product.product_image.url }}" />
@@ -50,6 +53,9 @@
                     <h5 class="card-product_stock fw-bold">Stock: {{ product.product_stock }}</h5>
                     <p class="card-product_description">Description: {{ product.product_description }}</p>
                     <a href="{% url 'UnitsDetail' product.product_id %}" class="btn btn-primary"> View units detail</a>
+                    <br>
+                    <br>
+                    <a href="{% url 'unitCreation' product.product_id %}" class="btn btn-success"> Add a new unit </a>
                     <br>
                     <br>
                     <!-- Unique ID for accordion -->

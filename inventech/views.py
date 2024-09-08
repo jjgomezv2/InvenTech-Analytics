@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Product, ProductUnit
 from .handling_suggestions import Handling_suggestions
@@ -7,6 +7,36 @@ import openai
 from openai import RateLimitError
 
 import markdown
+ 
+from .forms import ProductForm, UnitForm
+
+def create_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = ProductForm()
+
+    return render(request, 'productCreation.html', {'form': form})
+
+def create_unit(request, product_id):
+    product = get_object_or_404(Product, product_id=product_id)
+    
+    if request.method == 'POST':
+        form = UnitForm(request.POST)
+        if form.is_valid():
+            unit = form.save(commit=False)
+            unit.product_id_foreign = product
+            form.save()
+            return redirect('home')
+    else:
+        form = UnitForm()
+        
+    product = get_object_or_404(Product, product_id=product_id)
+
+    return render(request, 'UnitCreation.html', {'form': form, 'product': product})
  
 def assign_suggestions(product):
 

@@ -17,16 +17,16 @@
     </form>
     <br>
     <p>Searching for {{ searchTerm }}</p>
-    <div class="accordion" id="accordionExample">        
+    <div class="accordion" id="accordionExample{{ forloop.counter }}">        
         {% for unit in units %}
         {% if unit.product_id_foreign.product_id == product.product_id %}
         <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <h2 class="accordion-header{{ forloop.counter }}">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne{{ forloop.counter }}">
               {{unit.unit_id}}
             </button>
           </h2>
-          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+          <div id="collapseOne{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample{{ forloop.counter }}">
             <div class="accordion-body">
               <strong>Warehouse location: </strong> {{unit.unit_location}}
               <br>
