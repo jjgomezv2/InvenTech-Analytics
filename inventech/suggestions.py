@@ -28,3 +28,29 @@ class Handling_suggestions:
             max_tokens = 500,
         )
         return response.choices[0].message.content
+    
+class Price_suggestions:
+    _ = load_dotenv('openAI.env')
+    client = OpenAI(
+        # This is the default and can be omitted
+        api_key=os.environ.get('openAI_api_key'),
+    )
+    
+    def get_price(self, product_name, product_category, product_description, model="gpt-4o-mini"):
+        
+        prompt = f"""Given the product information below, provide a price suggestion in COP as the currency, consider similar products in this category and description to suggest a price. The suggested price should reflect current market conditions in Colombia while remaining logical for the product's characteristics.
+
+            Product Name: {product_name}
+            Category: {product_category}
+            Description: {product_description}
+                    
+         Please consider factors such as brand reputation, quality, and product features when suggesting a price. The answer must be just the price suggested without symbols or another information."""
+        
+        messages = [{"role": "user", "content": prompt}]
+        response = self.client.chat.completions.create(
+            model=model,
+            messages=messages,
+            temperature = 0.6,
+            max_tokens = 500,
+        )
+        return response.choices[0].message.content

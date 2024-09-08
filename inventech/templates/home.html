@@ -49,7 +49,7 @@
                 <div class="card-body">
                     <h5 class="card-name fw-bold"> Name: {{ product.product_name }}</h5>
                     <h5 class="card-product_category fw-bold"> Category: {{ product.product_category }}</h5>
-                    <h5 class="card-product_price fw-bold"> Price: ${{ product.product_price }}</h5>
+                    <h5 class="card-product_price fw-bold">AI-suggested Price: ${{ product.product_price|safe}}</h5>
                     <h5 class="card-product_stock fw-bold">Stock: {{ product.product_stock }}</h5>
                     <p class="card-product_description">Description: {{ product.product_description }}</p>
                     <a href="{% url 'UnitsDetail' product.product_id %}" class="btn btn-primary"> View units detail</a>
