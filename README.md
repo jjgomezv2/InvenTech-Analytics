@@ -35,3 +35,9 @@ or
 ```
 python manage.py runserver
 ```
+
+## Use Inventech Analytics
+
+Access localhost to interact with Inventech Analytics. You can use the next link:
+
+http://localhost:8000
