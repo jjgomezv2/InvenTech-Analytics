@@ -20,10 +20,9 @@ def delete_units(request, product_id):
     if request.method == 'POST':
         units_to_delete = int(request.POST.get('units_to_delete', 0))
         
-        # Filtra las unidades por el producto específico y ordena por la fecha de expiración ascendente
-        units = ProductUnit.objects.filter(product_id_foreign=product).order_by('unit_expirationDate')  # Orden por fecha de expiración
+        
+        units = ProductUnit.objects.filter(product_id_foreign=product).order_by('unit_expirationDate')  
 
-        # Elimina las unidades más antiguas según la cantidad indicada
         units_deleted = 0
         for unit in units:
             if units_deleted < units_to_delete:
@@ -32,7 +31,6 @@ def delete_units(request, product_id):
             else:
                 break
 
-        # Actualizar el stock del producto después de eliminar las unidades
         product.product_stock = F('product_stock') - units_deleted
         product.save(update_fields=['product_stock'])
 
