@@ -28,6 +28,7 @@ urlpatterns = [
     path('productCreation/', inventechViews.create_product, name='productCreation'),
     path('unitCreation/<str:product_id>/', inventechViews.create_unit, name='unitCreation'),
     path('delete-units/<str:product_id>/', inventechViews.delete_units, name='delete_units'),
+    path('delete_product/<str:product_id>/', inventechViews.delete_product, name='delete_product'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

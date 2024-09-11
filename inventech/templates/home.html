@@ -58,6 +58,12 @@
                     <a href="{% url 'unitCreation' product.product_id %}" class="btn btn-success"> Add a new unit </a>
                     <br>
                     <br>
+                    <form action="{% url 'delete_product' product.product_id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete Product and All Units</button>
+                    </form>
+                    <br>
+                    <br>
                     <!-- Unique ID for accordion -->
                     <div class="accordion accordion-flush" id="accordionFlushExample{{ forloop.counter }}">
                         <div class="accordion-item">

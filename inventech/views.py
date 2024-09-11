@@ -14,6 +14,23 @@ from django.db.models import F
 
 from django.db.models import F
 
+
+def delete_product(request, product_id):
+    # Obtener el producto por su ID
+    product = get_object_or_404(Product, product_id=product_id)
+
+    if request.method == 'POST':
+        # Eliminar todas las unidades relacionadas con el producto
+        ProductUnit.objects.filter(product_id_foreign=product).delete()
+
+        # Después de eliminar las unidades, eliminar el producto
+        product.delete()
+
+        # Redirigir a la página principal después de la eliminación
+        return redirect('home')
+
+    # Manejar solicitudes GET o métodos no permitidos
+    return HttpResponse("Invalid request method.", status=405)
 def delete_units(request, product_id):
     product = get_object_or_404(Product, product_id=product_id)
 
