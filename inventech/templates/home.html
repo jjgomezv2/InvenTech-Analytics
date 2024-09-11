@@ -74,6 +74,30 @@
                           </div>
                         </div>
                     </div>
+                    <br>
+                    <!-- Acordeón para eliminar unidades de producto -->
+                    <div class="accordion accordion-flush" id="deleteAccordion{{ forloop.counter }}">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="deleteHeading{{ forloop.counter }}">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#deleteCollapse{{ forloop.counter }}" aria-expanded="false" aria-controls="deleteCollapse{{ forloop.counter }}">
+                                    Remove Units of the Product
+                                </button>
+                            </h2>
+                            <div id="deleteCollapse{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#deleteAccordion{{ forloop.counter }}">
+                                <div class="accordion-body">
+                                    <!-- Formulario para eliminar unidades -->
+                                    <form method="POST" action="{% url 'delete_units' product.product_id %}">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label for="unitsToDelete{{ forloop.counter }}" class="form-label">Number of Units to Delete:</label>
+                                            <input type="number" class="form-control" id="unitsToDelete{{ forloop.counter }}" name="units_to_delete" min="1" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-danger">Delete Units</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
