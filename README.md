@@ -22,6 +22,14 @@ Open the folder where the project is located using the cd command after cloning.
 pip install -r requirements.txt
 ```
 
+## Create a .env file for the openAI api key
+
+Create a .env file in the main folder of the project "inventechanalyticsproject" called "openAI.env". Then, write the following line there, replacing the X with a valid openAI api key.
+
+```
+openAI_api_key = XXXXXXXXXX
+```
+
 ## Run the local server
 
 After installing the libraries, open the project folder in the console and digit the next command:
