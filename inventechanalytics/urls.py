@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import path, include
 from inventech import views as inventechViews
 
 from django.conf.urls.static import static
@@ -29,6 +30,7 @@ urlpatterns = [
     path('unitCreation/<str:product_id>/', inventechViews.create_unit, name='unitCreation'),
     path('delete-units/<str:product_id>/', inventechViews.delete_units, name='delete_units'),
     path('delete_product/<str:product_id>/', inventechViews.delete_product, name='delete_product'),
+    path('account/', include('account.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
