@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm 
@@ -9,8 +8,15 @@ from django.contrib.auth import login, logout, authenticate
 
 
 def signupaccount(request):
-    return render(request, 'signupaccount.html',
+    if request.method == 'GET':
+        return render(request, 'signupaccount.html',
                   {'form':UserCreationForm})
+    else:
+        if request.POST['password1'] == request.POST['password2']:
+            user = User.objects.create_user(request.POST['username'], password = request.POST['password1'])
+            user.save()
+            login(request, user)
+            return redirect('home')
 
 def logoutaccount(request): 
     logout(request) 
