@@ -2,20 +2,36 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth.models import User 
-from django.contrib.auth import login, logout, authenticate 
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required, user_passes_test
+from .forms import UserProfileForm
 
-
-
+@login_required
+@user_passes_test(lambda u: u.groups.filter(name='Managers').exists())
 def signupaccount(request):
     if request.method == 'GET':
+        user_form = UserCreationForm()
+        profile_form = UserProfileForm()
         return render(request, 'signupaccount.html',
-                  {'form':UserCreationForm})
+                  {'user_form': user_form, 'profile_form': profile_form})
     else:
-        if request.POST['password1'] == request.POST['password2']:
-            user = User.objects.create_user(request.POST['username'], password = request.POST['password1'])
-            user.save()
-            login(request, user)
-            return redirect('home')
+        if user_form.is_valid() and profile_form.is_valid():
+            if request.POST['password1'] == request.POST['password2']:
+                user = user_form.save()
+                
+                profile = profile_form.save(commit=False)
+                profile.user = user
+                profile.company_idCompany = request.user.userprofile.company_idCompany
+                profile.save()
+                
+                login(request, user)
+                return redirect('home')
+            else:
+                return render(request, 'signupaccount.html', 
+                              {'user_form': user_form, 'profile_form': profile_form, 'error': 'Passwords do not match'})
+        else:
+            return render(request, 'signupaccount.html', 
+                              {'user_form': user_form, 'profile_form': profile_form, 'error': 'Form Validation Error'})
 
 def logoutaccount(request): 
     logout(request) 

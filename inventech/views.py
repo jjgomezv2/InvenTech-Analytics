@@ -147,8 +147,11 @@ def home(request):
         if product.product_assigned_suggestions == "Blank":
             product.product_assigned_suggestions = assign_suggestions(product)
             product.save()
+            
+    user = request.user
+    is_manager = user.groups.filter(name='Managers').exists()
     
-    return render(request, 'home.html', {'searchTerm':searchTerm, 'products': products, 'low_quantity_products': low_quantity_products})
+    return render(request, 'home.html', {'searchTerm':searchTerm, 'products': products, 'low_quantity_products': low_quantity_products, 'is_manager': is_manager})
     
 def unitsDetail(request, product_id):
     searchTerm = request.GET.get('searchUnit')

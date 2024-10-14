@@ -1,13 +1,21 @@
+{% extends "base.html" %}
 {% block content %}
-<diV class="card mb-3">
+<diV class="card mb-3 mt-3">
     <div class="row g-0">
         <div>
             <div class = "card-body">
-                <h5 class = "card-title">Sign Up</h5>
+                <h5 class = "card-title">Sign Up an Employee</h5>
+                <p class = "card-text text-warning">If you need to sign up a manager, contact Inventech Analytics team</p>
+                {% if error %}
+                <div class="alert alert-danger mt-3" role="alert">
+                    {{error}}
+                </div>
+                {% endif %}
                 <p class="card-text">
                     <form method="POST">
                         {% csrf_token %}
-                        {{ form.as_p }}
+                        {{ user_form.as_p }}
+                        {{ profile_form.as_p }}
                         <button type="submit" class="btn btn-primary">
                             Sign Up
                         </button>
