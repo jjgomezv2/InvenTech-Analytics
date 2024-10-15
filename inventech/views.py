@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from .models import Product, ProductUnit
 from .suggestions import Handling_suggestions, Price_suggestions
 
+from account.models import UserProfile
+
 import openai
 from openai import RateLimitError
 
@@ -13,6 +15,8 @@ from .forms import ProductForm, UnitForm
 from django.db.models import F
 
 from django.db.models import F
+
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def delete_product(request, product_id):
@@ -58,9 +62,13 @@ def delete_units(request, product_id):
 
 
 def create_product(request):
+    user = request.user
+
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
+            product = form.save(commit=False)
+            product.assigned_company = user.company_idCompany
             form.save()
             return redirect('home')
     else:
@@ -129,12 +137,24 @@ def suggest_price(product):
 # Create your views here.
 
 def home(request):
-    searchTerm = request.GET.get('searchProduct')
-    low_quantity_products=Product.verifyLowQuantity()
-    if searchTerm:
-        products = Product.objects.filter(product_name__icontains = searchTerm)
+    user = request.user  # Django's user
+
+    if user.is_authenticated:
+
+        user_profile = UserProfile.objects.get(user=user) # Our user
+
+        searchTerm = request.GET.get('searchProduct')
+        low_quantity_products=Product.verifyLowQuantity(user=user_profile)
+
+        if searchTerm:
+            products = Product.objects.filter(product_name__icontains = searchTerm, assigned_company = user_profile.company_idCompany)
+        else:
+            products = Product.objects.filter(assigned_company = user_profile.company_idCompany)
+
     else:
-        products = Product.objects.all()
+        products = []
+        low_quantity_products = []
+        searchTerm = None
         
     
     for unit in ProductUnit.objects.all():
@@ -148,7 +168,7 @@ def home(request):
             product.product_assigned_suggestions = assign_suggestions(product)
             product.save()
             
-    user = request.user
+    
     is_manager = user.groups.filter(name='Managers').exists()
     
     return render(request, 'home.html', {'searchTerm':searchTerm, 'products': products, 'low_quantity_products': low_quantity_products, 'is_manager': is_manager})

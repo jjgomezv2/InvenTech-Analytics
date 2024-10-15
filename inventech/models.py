@@ -1,6 +1,7 @@
 from django.db import models
 import uuid # Importa las librerías para generar códigos únicos UUID
 from datetime import datetime # Date time library
+from account.models import Company
 
 # Función para generar un codigo UUID en versión 4
 def generate_uuid():
@@ -16,10 +17,11 @@ class Product(models.Model):
     product_description = models.CharField(max_length=100)
     product_image = models.ImageField(upload_to='inventech/images/', blank = True)
     product_assigned_suggestions = models.CharField(max_length=5000,default="Blank")
+    assigned_company = models.ForeignKey(Company, on_delete=models.CASCADE) # References the company
 
     @classmethod
-    def verifyLowQuantity(cls):
-        low_quantity_products = cls.objects.filter(product_stock__lte=20)
+    def verifyLowQuantity(cls, user):
+        low_quantity_products = cls.objects.filter(product_stock__lte=20, assigned_company = user.company_idCompany)
         return low_quantity_products
     
     # Para que en el admin no salga object(1) sino el nombre del producto

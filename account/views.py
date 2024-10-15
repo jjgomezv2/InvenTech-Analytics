@@ -15,6 +15,10 @@ def signupaccount(request):
         return render(request, 'signupaccount.html',
                   {'user_form': user_form, 'profile_form': profile_form})
     else:
+
+        user_form = UserCreationForm(request.POST)
+        profile_form = UserProfileForm(request.POST)
+
         if user_form.is_valid() and profile_form.is_valid():
             if request.POST['password1'] == request.POST['password2']:
                 user = user_form.save()
