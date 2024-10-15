@@ -3,7 +3,6 @@ from . import views
 
 # Urls of Data Analytics
 urlpatterns = [
-    path('signupaccount/', views.signupaccount, name ='signupaccount'),
-    path('logout/', views.logoutaccount, name='logoutaccount'),
-    path('login/', views.loginaccount, name='loginaccount'), 
+    path('graphics/', views.graphics, name ='graphics'),
+    path('logout/', views.graphics, name='logoutaccount'),
 ]

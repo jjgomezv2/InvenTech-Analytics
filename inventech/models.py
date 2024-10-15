@@ -13,6 +13,8 @@ class Product(models.Model):
     product_name = models.CharField(max_length=50)
     product_category = models.CharField(max_length=60)
     product_price = models.IntegerField(default=0)
+    product_sales = models.IntegerField(default=0)
+    product_expiration_count = models.IntegerField(default=0)
     product_stock = models.IntegerField(default=0, editable = False)
     product_description = models.CharField(max_length=100)
     product_image = models.ImageField(upload_to='inventech/images/', blank = True)
