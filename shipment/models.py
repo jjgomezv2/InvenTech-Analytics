@@ -13,9 +13,12 @@ class ShippingCompany(models.Model):
     shipComp_phone = models.CharField(max_length=45)
     shipComp_website = models.CharField(max_length=45)
 
+    def __str__(self):
+        return self.shipComp_name
+
 
 class Shipment(models.Model):
-    ShippingCompany_idShippingCompany = models.ForeignKey(ShippingCompany, on_delete=models.CASCADE, null=True, blank=True)
+    ShippingCompany_idShippingCompany = models.ForeignKey(ShippingCompany, on_delete=models.CASCADE)
     idShipment = models.CharField(max_length=50, default=generate_uuid, editable=False)
     shipmentDate = models.DateField()
     shipment_address = models.CharField(max_length=45)
