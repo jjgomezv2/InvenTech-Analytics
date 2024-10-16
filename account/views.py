@@ -28,7 +28,7 @@ def signupaccount(request):
                 profile.company_idCompany = request.user.userprofile.company_idCompany
                 profile.save()
                 
-                login(request, user)
+                #login(request, user)
                 return redirect('home')
             else:
                 return render(request, 'signupaccount.html', 
