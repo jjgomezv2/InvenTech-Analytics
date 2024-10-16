@@ -15,7 +15,7 @@ class ShippingCompany(models.Model):
 
 
 class Shipment(models.Model):
-    ShippingCompany_idShippingCompany = models.ForeignKey(ShippingCompany, on_delete=models.CASCADE)
+    ShippingCompany_idShippingCompany = models.ForeignKey(ShippingCompany, on_delete=models.CASCADE, null=True, blank=True)
     idShipment = models.CharField(max_length=50, default=generate_uuid, editable=False)
     shipmentDate = models.DateField()
     shipment_address = models.CharField(max_length=45)

@@ -4,7 +4,7 @@ from .models import Shipment
 class ShipmentForm(forms.ModelForm):
     class Meta:
         model = Shipment
-        exclude = ['ShippingCompany_idShippingCompany', 'idShipment', 'shipmentDate']
+        exclude = ['ShippingCompany_idShippingCompany', 'idShipment']
         labels = {
             'shipment_address': 'Shipment address',
             'shipment_customer_name': 'Shipment customer name',
@@ -12,4 +12,5 @@ class ShipmentForm(forms.ModelForm):
             'shipment_customer_phone': 'Shipment customer phone',
             'shipment_customer_id': 'Shipment customer id',
             'shipment_units_quantity': 'Shipment units quantity',
+            'shipmentDate': 'Shipment Date',
         }
