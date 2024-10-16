@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import path, include
 from inventech import views as inventechViews
+from shipment import views as shipmentViews
 
 from django.conf.urls.static import static
 from django.conf import settings
@@ -27,11 +28,13 @@ urlpatterns = [
     path('', inventechViews.home, name='home'),
     path('UnitsDetail/<str:product_id>/', inventechViews.unitsDetail, name='UnitsDetail'),
     path('productCreation/', inventechViews.create_product, name='productCreation'),
+    path('shipmentCreation/', shipmentViews.create_shipment, name='shipmentCreation'),
     path('unitCreation/<str:product_id>/', inventechViews.create_unit, name='unitCreation'),
     path('delete-units/<str:product_id>/', inventechViews.delete_units, name='delete_units'),
     path('delete_product/<str:product_id>/', inventechViews.delete_product, name='delete_product'),
     path('account/', include('account.urls')),
     path('analytics/', include('analytics.urls')),
+    path('shipment/', include('shipment.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

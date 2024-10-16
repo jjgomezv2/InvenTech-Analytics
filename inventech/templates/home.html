@@ -55,6 +55,11 @@
                     <a href="{% url 'unitCreation' product.product_id %}" class="btn btn-success"> Add a new unit </a>
                     <br>
                     <br>
+                    <br>
+                    <br>
+                    <a class="btn btn-success" href="{% url 'shipmentCreation' %}" role="button">Make a shipment</a>
+                    <br>
+                    <br>
                     <form action="{% url 'delete_product' product.product_id %}" method="post">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-danger">Delete Product</button>
