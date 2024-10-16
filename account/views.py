@@ -55,4 +55,7 @@ def loginaccount(request):
                 'error': 'username and password do not match'}) 
     else: 
         login(request,user) 
-        return redirect('home') 
+        return redirect('home')
+    
+def landing(request):
+    return render(request, 'landing.html')

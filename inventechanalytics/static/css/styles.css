@@ -13,3 +13,14 @@
  .navbar_custom{
     background-color: #DBCCB4;
 } 
+
+.container-fluid {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-text {
+    color: #0F2030 !important;
+}
