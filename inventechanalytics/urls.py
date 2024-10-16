@@ -34,7 +34,6 @@ urlpatterns = [
     path('delete_product/<str:product_id>/', inventechViews.delete_product, name='delete_product'),
     path('account/', include('account.urls')),
     path('analytics/', include('analytics.urls')),
-    path('shipment/', include('shipment.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

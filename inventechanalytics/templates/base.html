@@ -6,6 +6,8 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Inventech Analytics</title>
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 </head>
 
 <nav class="navbar navbar_custom navbar-expand-lg sticky-top navbar-light">
@@ -31,8 +33,14 @@
                 </ul>
               </li>
             {% endif %}
-            <li class="nav-item">
-              <a class="nav-link active fs-4" aria-current="page" href="{% url 'graphics' %}">Graphics</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle fs-4 " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Analytics
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'graphics' %}">Graphics</a></li>
+                <li><a class="dropdown-item" href="{% url 'selling' %}">Selling Suggestions</a></li>
+              </ul>
             </li>
           {% endif %}
         </ul>
