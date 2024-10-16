@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import Shipment
 
@@ -6,16 +7,12 @@ from inventech.models import Product, ProductUnit
 
 from account.models import UserProfile
 
-import openai
-from openai import RateLimitError
-
-import markdown
- 
 from .forms import ShipmentForm
 
 from django.db.models import F
 
 from django.core.exceptions import ObjectDoesNotExist
+
 
 def sell_units(product_id, quantity):
     product = get_object_or_404(Product, product_id=product_id)    
@@ -35,7 +32,7 @@ def sell_units(product_id, quantity):
     product.save(update_fields=['product_stock', 'product_sales'])
 
         
-
+@login_required
 def create_shipment(request, product_id):
     user = request.user
 

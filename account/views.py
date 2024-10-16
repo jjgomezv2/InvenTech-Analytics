@@ -37,9 +37,10 @@ def signupaccount(request):
             return render(request, 'signupaccount.html', 
                               {'user_form': user_form, 'profile_form': profile_form, 'error': 'Form Validation Error'})
 
+@login_required
 def logoutaccount(request): 
     logout(request) 
-    return redirect('home') 
+    return redirect('landing') 
 
 
 def loginaccount(request): 

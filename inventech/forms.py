@@ -4,7 +4,7 @@ from .models import Product, ProductUnit
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        exclude = ['product_id', 'product_price', 'product_stock', 'product_assigned_suggestions', 'assigned_company']
+        exclude = ['product_id', 'product_price', 'product_stock', 'product_assigned_suggestions', 'assigned_company', 'product_sales', 'product_expiration_count']
         labels = {
             'product_name': 'Product name',
             'product_category': 'Product category',

@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -18,19 +20,20 @@
           z-index: 1000;
       }
   </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   </head>
   <body>
+    <br>
     <h2>Units of {{product.product_name}}</h2>
     <form action="">
-        <div class="mb-3">
-            <label for="searchUnit" class="form-label">Search by unit id:</label>
-            <input type="text" class="form-control" name="searchUnit" />
+        <div class="mb-3 d-flex align-items-center">
+            <label for="searchUnit" class="form-label mx-2">Search by unit id:</label>
+            <input type="text" class="form-control w-25" name="searchUnit" placeholder="Type unit's Id"/>
+            <button type="submit" class="btn btn-classic mb-0 mx-2">Search</button>
         </div>
-        <button type="submit" class="btn btn-primary">Search</button>
     </form>
-    <br>
-    <p>Searching for {{ searchTerm }}</p>
+    {% if searchTerm %}
+      <p>Searching for {{ searchTerm }}</p>
+    {% endif %}
     <div class="accordion" id="accordionExample{{ forloop.counter }}">        
         {% for unit in units %}
         {% if unit.product_id_foreign.product_id == product.product_id %}
@@ -52,7 +55,7 @@
         {% endif %}
         {% endfor %}
         <br>
-        <a href="{% url 'home'%}" class="btn btn-primary"> Go back to products </a>
+        <a href="{% url 'home'%}" class="btn btn-classic"> Go back to products </a>
 
 
         <!-- EXPIRATION NOTIFICATIONS -->
@@ -74,6 +77,6 @@
         </script>
         {% endif %}
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>
+{% endblock content %}

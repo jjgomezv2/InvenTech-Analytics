@@ -10,17 +10,20 @@
                 0.3em 0.3em 1em rgba(0,0,0,0.3);
 }
 
- .navbar_custom{
+.navbar_custom{
     background-color: #DBCCB4;
 } 
 
-.container-fluid {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .nav-text {
     color: #0F2030 !important;
+}
+
+.btn-classic {
+    background-color: #0F2030;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.btn-container{
+    display: grid;
 }

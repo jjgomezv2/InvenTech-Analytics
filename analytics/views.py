@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from inventech.models import Product, ProductUnit
 from account.models import UserProfile
 
@@ -14,7 +15,7 @@ import json
 import markdown
 
 # Create your views here.
-
+@login_required
 def graphics(request):
 
     user = request.user
@@ -95,7 +96,7 @@ def graphics(request):
 
     return render(request, 'graphics.html', {'graphic':graphic,'graphic2': graphic2, 'is_manager': is_manager})
 
-    
+@login_required
 def selling(request):
 
     user = request.user

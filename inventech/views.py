@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from .models import Product, ProductUnit
 from .suggestions import Handling_suggestions, Price_suggestions
 
@@ -18,7 +19,7 @@ from django.db.models import F
 
 from django.core.exceptions import ObjectDoesNotExist
 
-
+@login_required
 def delete_product(request, product_id):
     # Obtener el producto por su ID
     product = get_object_or_404(Product, product_id=product_id)
@@ -35,6 +36,8 @@ def delete_product(request, product_id):
 
     # Manejar solicitudes GET o métodos no permitidos
     return HttpResponse("Invalid request method.", status=405)
+
+@login_required
 def delete_units(request, product_id):
     product = get_object_or_404(Product, product_id=product_id)
 
@@ -59,8 +62,7 @@ def delete_units(request, product_id):
 
     return HttpResponse("Invalid request method.", status=405)
 
-
-
+@login_required
 def create_product(request):
     user = request.user
 
@@ -76,6 +78,7 @@ def create_product(request):
 
     return render(request, 'productCreation.html', {'form': form})
 
+@login_required
 def create_unit(request, product_id):
     product = get_object_or_404(Product, product_id=product_id)
     
@@ -135,7 +138,7 @@ def suggest_price(product):
         return "An error occurred while fetching suggestion."
 
 # Create your views here.
-
+@login_required
 def home(request):
     user = request.user  # Django's user
 
@@ -172,7 +175,8 @@ def home(request):
     is_manager = user.groups.filter(name='Managers').exists()
     
     return render(request, 'home.html', {'searchTerm':searchTerm, 'products': products, 'low_quantity_products': low_quantity_products, 'is_manager': is_manager})
-    
+
+@login_required
 def unitsDetail(request, product_id):
     searchTerm = request.GET.get('searchUnit')
     if searchTerm:
