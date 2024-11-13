@@ -15,7 +15,7 @@ class ProductForm(forms.ModelForm):
 class UnitForm(forms.ModelForm):
     class Meta:
         model = ProductUnit
-        exclude = ['product_id_foreign', 'unit_id', 'unit_quality_state', 'unit_location']
+        exclude = ['product_id_foreign', 'unit_id', 'unit_quality_state']
         labels = {
             'unit_expirationDate': 'Expiration date',
         }

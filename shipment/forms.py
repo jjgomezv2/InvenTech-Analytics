@@ -15,3 +15,7 @@ class ShipmentForm(forms.ModelForm):
             'shipment_units_quantity': 'Shipment units quantity',
             'shipmentDate': 'Shipment Date',
         }
+    shipmentDate = forms.DateField(
+        label= 'Shipment date',
+        widget=forms.DateInput(attrs={'placeholder': 'YYYY-MM-DD', 'type': 'date'})
+    )

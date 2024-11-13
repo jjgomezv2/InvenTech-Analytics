@@ -8,6 +8,14 @@
     <title>Shipment creation</title>
   </head>
   <body>
+    <br>
+    {% if messages %}
+    <div class="alert alert-danger" id="danger-message">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}
     <diV class="card mb-3 mt-3">
       <div class="row g-0">
         <div>

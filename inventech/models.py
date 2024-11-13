@@ -34,13 +34,17 @@ class ProductUnit(models.Model):
     product_id_foreign = models.ForeignKey(Product, on_delete=models.CASCADE) # Referencia el producto del cual es unidad, on_delete cascade indica que si se elimina el producto, se eliminan todas las unidades hijas de este
     unit_id = models.CharField(max_length=50, default=generate_uuid, editable=False)
     unit_expirationDate = models.DateField()
-    unit_location = models.CharField(max_length=50)
     unit_quality_state = models.CharField(max_length=50, default="Good condition", editable = False)
 
     @classmethod
     def verifyExpiration(cls, product):
         now = datetime.now().date()
         expiredProducts = cls.objects.filter(unit_expirationDate__lt = now, product_id_foreign = product)
+        
+        for item in expiredProducts:
+            item.unit_quality_state = "Expired"
+            item.save()
+        
         return expiredProducts
     
     
