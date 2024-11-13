@@ -19,7 +19,16 @@
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
           z-index: 1000;
       }
-  </style>
+
+      .accordion-header-good {
+        background-color: #d4edda;
+        color: #155724;
+      }
+      .accordion-header-expired {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+    </style>
   </head>
   <body>
     <br>
@@ -34,17 +43,18 @@
     {% if searchTerm %}
       <p>Searching for {{ searchTerm }}</p>
     {% endif %}
-    <div class="accordion" id="accordionExample{{ forloop.counter }}">        
+    <div class="accordion" id="accordionExample">        
         {% for unit in units %}
-        {% if unit.product_id_foreign.product_id == product.product_id %}
         <div class="accordion-item">
-          <h2 class="accordion-header{{ forloop.counter }}">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{ forloop.counter }}" aria-expanded="true" aria-controls="collapseOne{{ forloop.counter }}">
-              {{unit.unit_id}}
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed {% if unit.unit_quality_state == 'Good condition' %}accordion-header-good{% elif unit.unit_quality_state == 'Expired' %}accordion-header-expired{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{ forloop.counter }}" aria-expanded="false" aria-controls="collapseOne{{ forloop.counter }}">
+              Unit {{forloop.counter}}
             </button>
           </h2>
-          <div id="collapseOne{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample{{ forloop.counter }}">
+          <div id="collapseOne{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
             <div class="accordion-body">
+              <strong>Unit's ID: </strong> {{unit.unit_id}}
+              <br>
               <strong>Unit's expiration date: </strong> {{unit.unit_expirationDate}}
               <br>
               <strong>Unit's quality state: </strong> {{unit.unit_quality_state}}
@@ -52,11 +62,9 @@
             </div>
           </div>
         </div>
-        {% endif %}
         {% endfor %}
         <br>
         <a href="{% url 'home'%}" class="btn btn-classic"> Go back</a>
-
 
         <!-- EXPIRATION NOTIFICATIONS -->
         {% if expiredUnits %}

@@ -178,13 +178,13 @@ def home(request):
 
 @login_required
 def unitsDetail(request, product_id):
+    product = get_object_or_404(Product, product_id=product_id)
     searchTerm = request.GET.get('searchUnit')
     if searchTerm:
-        units = ProductUnit.objects.filter(unit_id__icontains = searchTerm)
+        units = ProductUnit.objects.filter(unit_id__icontains = searchTerm, product_id_foreign = product)
     else:
-        units = ProductUnit.objects.all()
+        units = ProductUnit.objects.filter(product_id_foreign = product)
         
-    product = get_object_or_404(Product, product_id=product_id)
     expiredUnits = ProductUnit.verifyExpiration(product)
     
     return render(request, 'unitsDetail.html', {'searchTerm':searchTerm, 'product': product, 'units': units, 'expiredUnits': expiredUnits})
