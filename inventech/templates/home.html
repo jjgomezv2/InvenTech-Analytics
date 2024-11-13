@@ -54,10 +54,10 @@
                         <a class="btn btn-classic" href="{% url 'shipmentCreation' product.product_id %}" role="button">Make a shipment</a>
                     </div>
                     
-                    <form action="{% url 'delete_product' product.product_id %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger d-flex-center">Delete Product</button>
-                    </form>
+                    <button type="button" class="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteModal{{ product.product_id }}">
+                        Delete product
+                    </button>
+
                     <!-- Unique ID for accordion -->
                     <div class="accordion accordion-flush" id="accordionFlushExample{{ forloop.counter }}">
                         <div class="accordion-item">
@@ -97,6 +97,26 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="deleteModal{{ product.product_id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ product.product_id }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel{{ product.product_id }}">Confirm removal</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete <strong>{{product.product_name}}</strong>?
+                        <br>
+                        <br>
+                        This action will delete the product and all its units. It's not reversible.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <a href="{% url 'delete_product' product.product_id %}" class="btn btn-danger">Delete</a>
                     </div>
                 </div>
             </div>
