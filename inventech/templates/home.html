@@ -22,7 +22,7 @@
 <body>   
 <div class="container">
     <br>
-    <h2>Your inventory</h2>
+    <h1> Your inventory</h1>
     <a class="btn btn-classic mt-3" href="{% url 'productCreation' %}" role="button">Create a new product</a>
     <form action="">
         <div class="mb-2 d-flex align-items-center justify-content-end">
@@ -57,6 +57,9 @@
                     <button type="button" class="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteModal{{ product.product_id }}">
                         Delete product
                     </button>
+
+                    <br>
+                    <br>
 
                     <!-- Unique ID for accordion -->
                     <div class="accordion accordion-flush" id="accordionFlushExample{{ forloop.counter }}">
