@@ -15,8 +15,11 @@ class ProductForm(forms.ModelForm):
 class UnitForm(forms.ModelForm):
     class Meta:
         model = ProductUnit
-        exclude = ['product_id_foreign', 'unit_id', 'unit_quality_state']
+        exclude = ['product_id_foreign', 'unit_id', 'unit_quality_state', 'unit_location']
         labels = {
             'unit_expirationDate': 'Expiration date',
-            'unit_location': 'Unit location in warehouse',
         }
+    unit_expirationDate = forms.DateField(
+        label= 'Expiration date',
+        widget=forms.DateInput(attrs={'placeholder': 'YYYY-MM-DD', 'type': 'date'})
+    )
