@@ -19,7 +19,7 @@
 }
 
 .btn-classic {
-    background-color: #0F2030;
+    background-color: #0F2030 !important;
     color: #fff;
     margin-bottom: 20px;
 }
