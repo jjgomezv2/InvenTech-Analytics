@@ -90,7 +90,7 @@ def create_unit(request, product_id):
         form = UnitForm()
         
 
-    return render(request, 'UnitCreation.html', {'form': form, 'product': product})
+    return render(request, 'unitCreation.html', {'form': form, 'product': product})
  
 def assign_suggestions(product):
 
