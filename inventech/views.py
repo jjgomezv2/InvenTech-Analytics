@@ -62,12 +62,13 @@ def delete_units(request, product_id):
 @login_required
 def create_product(request):
     user = request.user
+    userProfile = UserProfile.objects.filter(user = user)
 
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             product = form.save(commit=False)
-            product.assigned_company = user.company_idCompany
+            product.assigned_company = userProfile.company_idCompany
             form.save()
             return redirect('home')
     else:
