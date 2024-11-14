@@ -62,7 +62,7 @@ def delete_units(request, product_id):
 @login_required
 def create_product(request):
     user = request.user
-    userProfile = UserProfile.objects.filter(user = user)
+    userProfile = UserProfile.objects.get(user = user)
 
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
